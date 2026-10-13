@@ -56,20 +56,11 @@ Behind the Track quiere cubrir ese vacío:
 
 El trabajo se organiza con **Scrum** en un tablero de Trello, con backlog, sprints e historias de usuario:
 
-👉 [Ver tablero de Trello](https://trello.com/b/aM2e5TLP/behind-the-track)
+👉 Ver tablero de proyecto: https://github.com/users/NBA-Nicole/projects/3
 
 ## Estado actual
 
 🚧 **En planificación.** Por ahora existe la estructura base del proyecto (`index.html`) y el tablero de Trello.
-
-## Cómo ver el proyecto
-
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/NBA-Nicole/Proyecto-personal.git
-   ```
-2. Abre la carpeta del proyecto.
-3. Abre el archivo `index.html` en tu navegador.
 
 ## Autora
 
