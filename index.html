@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Behind the Track</title>
+  <meta name="description" content="Descubre artistas y álbumes, y conoce lo que hay detrás de la música que escuchas.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cobalto: #1f2fd0;
+      --tinta: #12143f;
+      --lila: #e7d9ff;
+      --menta: #7cf0c6;
+      --blanco: #ffffff;
+      --display: "Bricolage Grotesque", "Arial Black", Arial, sans-serif;
+      --texto: "Newsreader", Georgia, "Times New Roman", serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--texto);
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--tinta);
+      background: var(--lila);
+    }
+
+    a { color: inherit; }
+    a:focus-visible { outline: 3px solid var(--menta); outline-offset: 3px; }
+
+    /* ---------- Portada ---------- */
+    .portada {
+      position: relative;
+      overflow: hidden;
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem clamp(1.25rem, 6vw, 5rem) clamp(2rem, 6vw, 4rem);
+      background: var(--cobalto);
+      color: var(--lila);
+    }
+
+    /* Disco de vinilo hecho solo con CSS */
+    .disco {
+      position: absolute;
+      top: -14vmin;
+      right: -18vmin;
+      width: 72vmin;
+      height: 72vmin;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, var(--menta) 0 9%, var(--tinta) 9.5% 11%, transparent 11.5%),
+        repeating-radial-gradient(circle, #0b0c2b 0 2px, #181b5c 2px 4px);
+      box-shadow: 0 0 0 1.2vmin rgba(231, 217, 255, 0.12);
+    }
+
+    .portada h1 {
+      position: relative;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(3.2rem, 13vw, 9.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      color: var(--blanco);
+    }
+
+    .portada p {
+      position: relative;
+      max-width: 34ch;
+      margin-top: 1.5rem;
+      font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+      font-style: italic;
+    }
+
+    /* ---------- Secciones ---------- */
+    main { padding: clamp(2.5rem, 7vw, 5rem) clamp(1.25rem, 6vw, 5rem); }
+
+    section { max-width: 44rem; margin: 0 auto clamp(3rem, 8vw, 5rem); }
+
+    h2 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    section > p { max-width: 62ch; }
+
+    /* Lista tipo "tracklist" de un disco */
+    .tracklist { list-style: none; margin-top: 1.5rem; border-top: 2px solid var(--tinta); }
+
+    .tracklist li {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 0.5rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(18, 20, 63, 0.35);
+    }
+
+    .tracklist .num {
+      font-family: var(--display);
+      font-weight: 500;
+      color: var(--cobalto);
+    }
+
+    .tracklist strong { font-family: var(--display); font-weight: 800; }
+
+    /* ---------- Estado y enlaces ---------- */
+    .estado {
+      padding: 1.5rem;
+      background: var(--tinta);
+      color: var(--lila);
+      border-radius: 4px;
+    }
+
+    .estado h2 { color: var(--blanco); font-size: 1.5rem; }
+
+    .enlaces { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+
+    .boton {
+      display: inline-block;
+      padding: 0.7rem 1.2rem;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      background: var(--menta);
+      color: var(--tinta);
+      border-radius: 999px;
+    }
+
+    .boton:hover { background: var(--blanco); }
+
+    footer {
+      padding: 2rem clamp(1.25rem, 6vw, 5rem);
+      font-size: 0.95rem;
+      background: var(--cobalto);
+      color: var(--lila);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="portada">
+    <div class="disco" aria-hidden="true"></div>
+    <h1>Behind<br>the Track</h1>
+    <p>Lo que hay detrás de cada canción.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Qué es</h2>
+      <p>
+        Una plataforma para descubrir artistas y álbumes, y para entender
+        la música que ya escuchas: quién la hizo, cómo se creó y qué historia
+        tiene detrás.
+      </p>
+    </section>
+
+    <section>
+      <h2>Qué vas a encontrar</h2>
+      <ol class="tracklist">
+        <li>
+          <span class="num">1</span>
+          <span><strong>Artistas.</strong> Biografía, discografía e influencias.</span>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <span><strong>Álbumes.</strong> Créditos, producción y proceso creativo.</span>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <span><strong>Descubrimiento.</strong> Búsqueda por género, década y país.</span>
+        </li>
+        <li>
+          <span class="num">4</span>
+          <span><strong>Tu colección.</strong> Guarda favoritos y una lista de por escuchar.</span>
+        </li>
+        <li>
+          <span class="num">5</span>
+          <span><strong>Reproductor.</strong> Escucha sin salir de la página, con Apple Music.</span>
+        </li>
+      </ol>
+    </section>
+
+    <section class="estado">
+      <h2>Estado del proyecto</h2>
+      <p>
+        En planificación. Esta es la estructura base; el desarrollo avanza por
+        sprints en el tablero de Scrum.
+      </p>
+      <div class="enlaces">
+        <a class="boton" href="https://trello.com/b/aM2e5TLP/behind-the-track" target="_blank" rel="noopener">Ver tablero en Trello</a>
+        <a class="boton" href="https://github.com/NBA-Nicole/Proyecto-personal" target="_blank" rel="noopener">Ver repositorio</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Proyecto personal · Bootcamp Full Stack Java Jr · Nicole
+  </footer>
+</body>
+</html>
