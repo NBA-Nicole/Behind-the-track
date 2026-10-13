@@ -62,15 +62,6 @@ El trabajo se organiza con **Scrum** en un tablero de Trello, con backlog, sprin
 
 🚧 **En planificación.** Por ahora existe la estructura base del proyecto (`index.html`) y el tablero de Trello.
 
-## Cómo ver el proyecto
-
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/NBA-Nicole/Proyecto-personal.git
-   ```
-2. Abre la carpeta del proyecto.
-3. Abre el archivo `index.html` en tu navegador.
-
 ## Autora
 
 **Nicole** — [@NBA-Nicole](https://github.com/NBA-Nicole)
