@@ -56,7 +56,7 @@ Behind the Track quiere cubrir ese vacío:
 
 El trabajo se organiza con **Scrum** en un tablero de Trello, con backlog, sprints e historias de usuario:
 
-👉 [Ver tablero de Trello](https://trello.com/b/aM2e5TLP/behind-the-track)
+👉 Ver tablero de proyecto: https://github.com/users/NBA-Nicole/projects/3
 
 ## Estado actual
 
