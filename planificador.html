@@ -4,65 +4,113 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Planificador de tareas | Behind the Track</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&display=swap">
+  <link rel="stylesheet" href="css/planificador.css">
 </head>
-
 <body>
-  <header class="encabezado">
-    <a class="volver" href="index.html">Volver al inicio</a>
-    <h1>Planificador de tareas</h1>
-    <p>Organiza lo que hay que hacer en Behind the Track y quién lo hace.</p>
-  </header>
+  <main class="stage">
 
-  <main>
-    <form class="formulario" action="#" method="post">
+    <a class="volver" href="index.html">← Volver al inicio</a>
 
-      <div class="campo">
+    <!-- Estado 1: formulario (estilo de Uiverse.io por Praashoo7) -->
+    <form class="card form" id="tarea" novalidate>
+      <p class="heading">Nueva tarea</p>
+
+      <div class="group">
         <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Ej: Crear página de artista" required maxlength="80">
+        <div class="field">
+          <svg class="input-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2"></rect><path d="M5 8l2 2 4-4"></path></svg>
+          <input id="nombre" name="nombre" class="input-field" type="text" placeholder="Ej: Crear página de artista" autocomplete="off" required>
+        </div>
       </div>
 
-      <div class="campo">
+      <div class="group">
         <label for="descripcion">Descripción</label>
-        <textarea id="descripcion" name="descripcion" placeholder="Explica en qué consiste la tarea" required></textarea>
+        <div class="field area">
+          <svg class="input-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 16 16"><path d="M2 4h12M2 8h12M2 12h8"></path></svg>
+          <textarea id="descripcion" name="descripcion" class="input-field" rows="3" placeholder="Explica en qué consiste la tarea" required></textarea>
+        </div>
       </div>
 
-      <div class="campo">
+      <div class="group">
         <label for="asignadoA">Asignado a</label>
-        <input type="text" id="asignadoA" name="asignadoA" placeholder="Nombre de la persona responsable" required>
+        <div class="field">
+          <svg class="input-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 16 16"><circle cx="8" cy="5" r="3"></circle><path d="M2 14c0-3 3-5 6-5s6 2 6 5"></path></svg>
+          <input id="asignadoA" name="asignadoA" class="input-field" type="text" placeholder="Nombre de la persona responsable" autocomplete="off" required>
+        </div>
       </div>
 
-      <div class="campo">
+      <div class="group">
         <label for="fechaEntrega">Fecha de entrega</label>
-        <input type="date" id="fechaEntrega" name="fechaEntrega" required>
+        <div class="field">
+          <svg class="input-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="11" rx="2"></rect><path d="M2 7h12M5 1v3M11 1v3"></path></svg>
+          <input id="fechaEntrega" name="fechaEntrega" class="input-field" type="date" required>
+        </div>
       </div>
 
-      <div class="campo">
+      <div class="group">
         <label for="estado">Estado</label>
-        <select id="estado" name="estado" required>
-          <option value="" disabled selected>Elige un estado</option>
-          <option value="pendiente">Pendiente</option>
-          <option value="en-progreso">En progreso</option>
-          <option value="en-revision">En revisión</option>
-          <option value="hecho">Hecho</option>
-        </select>
+        <div class="field">
+          <svg class="input-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><path d="M3 14V2M3 3h9l-2 3 2 3H3"></path></svg>
+          <select id="estado" name="estado" class="input-field" required>
+            <option value="" disabled selected>Elige un estado</option>
+            <option>Pendiente</option>
+            <option>En progreso</option>
+            <option>En revisión</option>
+            <option>Hecho</option>
+          </select>
+        </div>
       </div>
 
-      <div class="acciones">
-        <button type="submit" class="boton boton--oscuro">Guardar tarea</button>
-        <button type="reset" class="boton boton--borde">Limpiar</button>
-      </div>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
 
+      <div class="btn">
+        <button class="button1" type="submit">Guardar tarea</button>
+        <button class="button2" type="reset">Limpiar</button>
+      </div>
     </form>
+
+    <!-- Estado 2: guardando (hámster de Uiverse.io por Nawsome) -->
+    <section class="card panel" id="saving" hidden>
+      <div aria-label="Hámster naranja y beige corriendo en una rueda de metal" role="img" class="wheel-and-hamster">
+        <div class="wheel"></div>
+        <div class="hamster">
+          <div class="hamster__body">
+            <div class="hamster__head">
+              <div class="hamster__ear"></div>
+              <div class="hamster__eye"></div>
+              <div class="hamster__nose"></div>
+            </div>
+            <div class="hamster__limb hamster__limb--fr"></div>
+            <div class="hamster__limb hamster__limb--fl"></div>
+            <div class="hamster__limb hamster__limb--br"></div>
+            <div class="hamster__limb hamster__limb--bl"></div>
+            <div class="hamster__tail"></div>
+          </div>
+        </div>
+        <div class="spoke"></div>
+      </div>
+      <h2 id="savingTitle" tabindex="-1">Guardando tu tarea…</h2>
+    </section>
+
+    <!-- Estado 3: tarea guardada -->
+    <section class="card panel" id="saved" hidden>
+      <svg class="check" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M7.5 12.5l3 3 6-6.5"></path></svg>
+      <h2 id="savedTitle" tabindex="-1">Tarea guardada</h2>
+      <dl class="summary">
+        <dt>Nombre</dt><dd id="rNombre"></dd>
+        <dt>Descripción</dt><dd id="rDescripcion"></dd>
+        <dt>Asignado a</dt><dd id="rAsignado"></dd>
+        <dt>Entrega</dt><dd id="rFecha"></dd>
+        <dt>Estado</dt><dd id="rEstado"></dd>
+      </dl>
+      <button class="button1" type="button" id="otra">Agregar otra tarea</button>
+    </section>
+
   </main>
 
-  <footer>
-    Proyecto personal · Bootcamp Full Stack Java Jr · Nicole
-  </footer>
+  <script src="js/planificador.js"></script>
 </body>
 </html>
