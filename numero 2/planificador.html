@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planificador de tareas | Behind the Track</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <header class="encabezado">
+    <a class="volver" href="index.html">Volver al inicio</a>
+    <h1>Planificador de tareas</h1>
+    <p>Organiza lo que hay que hacer en Behind the Track y quién lo hace.</p>
+  </header>
+
+  <main>
+    <form class="formulario" action="#" method="post">
+
+      <div class="campo">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej: Crear página de artista" required maxlength="80">
+      </div>
+
+      <div class="campo">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" name="descripcion" placeholder="Explica en qué consiste la tarea" required></textarea>
+      </div>
+
+      <div class="campo">
+        <label for="asignadoA">Asignado a</label>
+        <input type="text" id="asignadoA" name="asignadoA" placeholder="Nombre de la persona responsable" required>
+      </div>
+
+      <div class="campo">
+        <label for="fechaEntrega">Fecha de entrega</label>
+        <input type="date" id="fechaEntrega" name="fechaEntrega" required>
+      </div>
+
+      <div class="campo">
+        <label for="estado">Estado</label>
+        <select id="estado" name="estado" required>
+          <option value="" disabled selected>Elige un estado</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="en-progreso">En progreso</option>
+          <option value="en-revision">En revisión</option>
+          <option value="hecho">Hecho</option>
+        </select>
+      </div>
+
+      <div class="acciones">
+        <button type="submit" class="boton boton--oscuro">Guardar tarea</button>
+        <button type="reset" class="boton boton--borde">Limpiar</button>
+      </div>
+
+    </form>
+  </main>
+
+  <footer>
+    Proyecto personal · Bootcamp Full Stack Java Jr · Nicole
+  </footer>
+</body>
+</html>
