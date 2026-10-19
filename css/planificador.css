@@ -1,6 +1,6 @@
 /* Planificador de Tareas
-   Una sola tarjeta oscura centrada que cambia entre tres estados:
-   formulario, hámster guardando y tarea guardada. */
+   Una columna centrada: el formulario (que se cambia por el hámster
+   un momento al guardar) y debajo la lista de tarjetas de tareas. */
 
 :root {
   --bg: #212121;
@@ -136,15 +136,17 @@ select.input-field option { background: #171717; color: #d3d3d3; }
   outline-offset: 2px;
 }
 
-.status {
+/* mensaje de error que sale debajo de cada campo */
+.field-error {
   margin: 0;
-  min-height: 1.4em;
-  font-size: 0.875rem;
+  padding-left: 1em;
+  font-size: 0.8125rem;
   color: #ff8a8e;
-  text-align: center;
 }
+.field-error:empty { display: none; }
+.has-error .field { box-shadow: inset 2px 5px 10px rgb(5, 5, 5), 0 0 0 1px #ff8a8e; }
 
-/* ---------- Estados: guardando y guardada ---------- */
+/* ---------- Estado: guardando (hámster) ---------- */
 .panel {
   align-items: center;
   text-align: center;
@@ -154,19 +156,41 @@ select.input-field option { background: #171717; color: #d3d3d3; }
 }
 .panel h2 { margin: 0; font-size: 1.2em; font-weight: 600; color: var(--ink); }
 .panel h2:focus { outline: none; }
-.check { color: var(--ok); }
 
-.summary {
-  width: 100%;
-  margin: 0.4em 0 0.6em;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 8px 14px;
-  text-align: left;
-  font-size: 0.9375rem;
+/* ---------- Lista de tareas ---------- */
+.task-section {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-.summary dt { color: var(--muted); }
-.summary dd { margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+.task-section-title { margin: 0; color: var(--ink); font-size: 1.1em; font-weight: 600; }
+.task-empty { margin: 0; color: var(--muted); font-size: 0.9375rem; }
+.task-empty[hidden] { display: none; }
+.task-list { display: flex; flex-direction: column; gap: 12px; }
+
+.task-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 1.1em 1.4em;
+  background-color: var(--card);
+  border-radius: 20px;
+}
+.task-card-name { margin: 0; color: var(--ink); font-size: 1.05em; font-weight: 600; overflow-wrap: anywhere; }
+.task-card-text { margin: 0; color: var(--text); font-size: 0.9375rem; overflow-wrap: anywhere; }
+.task-card-meta { margin: 0; color: var(--muted); font-size: 0.875rem; overflow-wrap: anywhere; }
+.task-card-status {
+  align-self: flex-start;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background-color: var(--btn);
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.task-card .button3 { align-self: flex-start; }
 
 /* ---------- Hámster ---------- */
 /* From Uiverse.io by Nawsome */

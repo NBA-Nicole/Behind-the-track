@@ -12,59 +12,64 @@
 <body>
   <main class="stage">
 
-    <a class="volver" href="index.html">← Volver al inicio</a>
+    <header>
+      <a class="volver" href="index.html">← Volver al inicio</a>
+    </header>
 
-    <!-- Estado 1: formulario (estilo de Uiverse.io por Praashoo7) -->
+    <!-- Formulario (estilo de Uiverse.io por Praashoo7) -->
     <form class="card form" id="tarea" novalidate>
-      <p class="heading">Nueva tarea</p>
+      <h1 class="heading">Nueva tarea</h1>
 
       <div class="group">
         <label for="nombre">Nombre</label>
         <div class="field">
           <svg class="input-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2"></rect><path d="M5 8l2 2 4-4"></path></svg>
-          <input id="nombre" name="nombre" class="input-field" type="text" placeholder="Ej: Crear página de artista" autocomplete="off" required>
+          <input id="nombre" name="nombre" class="input-field" type="text" placeholder="Ej: Crear página de artista" autocomplete="off" aria-describedby="nombre-error" required>
         </div>
+        <p class="field-error" id="nombre-error"></p>
       </div>
 
       <div class="group">
         <label for="descripcion">Descripción</label>
         <div class="field area">
           <svg class="input-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 16 16"><path d="M2 4h12M2 8h12M2 12h8"></path></svg>
-          <textarea id="descripcion" name="descripcion" class="input-field" rows="3" placeholder="Explica en qué consiste la tarea" required></textarea>
+          <textarea id="descripcion" name="descripcion" class="input-field" rows="3" placeholder="Explica en qué consiste la tarea" aria-describedby="descripcion-error" required></textarea>
         </div>
+        <p class="field-error" id="descripcion-error"></p>
       </div>
 
       <div class="group">
         <label for="asignadoA">Asignado a</label>
         <div class="field">
           <svg class="input-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 16 16"><circle cx="8" cy="5" r="3"></circle><path d="M2 14c0-3 3-5 6-5s6 2 6 5"></path></svg>
-          <input id="asignadoA" name="asignadoA" class="input-field" type="text" placeholder="Nombre de la persona responsable" autocomplete="off" required>
+          <input id="asignadoA" name="asignadoA" class="input-field" type="text" placeholder="Nombre de la persona responsable" autocomplete="off" aria-describedby="asignadoA-error" required>
         </div>
+        <p class="field-error" id="asignadoA-error"></p>
       </div>
 
       <div class="group">
         <label for="fechaEntrega">Fecha de entrega</label>
         <div class="field">
           <svg class="input-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="11" rx="2"></rect><path d="M2 7h12M5 1v3M11 1v3"></path></svg>
-          <input id="fechaEntrega" name="fechaEntrega" class="input-field" type="date" required>
+          <input id="fechaEntrega" name="fechaEntrega" class="input-field" type="date" aria-describedby="fechaEntrega-error" required>
         </div>
+        <p class="field-error" id="fechaEntrega-error"></p>
       </div>
 
       <div class="group">
         <label for="estado">Estado</label>
         <div class="field">
           <svg class="input-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16"><path d="M3 14V2M3 3h9l-2 3 2 3H3"></path></svg>
-          <select id="estado" name="estado" class="input-field" required>
+          <select id="estado" name="estado" class="input-field" aria-describedby="estado-error" required>
             <option value="" disabled selected>Elige un estado</option>
-            <option>Pendiente</option>
-            <option>En progreso</option>
-            <option>En revisión</option>
-            <option>Hecho</option>
+            <option value="POR HACER">Por hacer</option>
+            <option value="EN PROCESO">En proceso</option>
+            <option value="REVISIÓN">Revisión</option>
+            <option value="HECHO">Hecho</option>
           </select>
         </div>
+        <p class="field-error" id="estado-error"></p>
       </div>
-
-      <p class="status" id="status" role="status" aria-live="polite"></p>
 
       <div class="btn">
         <button class="button1" type="submit">Guardar tarea</button>
@@ -72,7 +77,7 @@
       </div>
     </form>
 
-    <!-- Estado 2: guardando (hámster de Uiverse.io por Nawsome) -->
+    <!-- El hámster (de Uiverse.io por Nawsome) sale un momento después de guardar -->
     <section class="card panel" id="saving" hidden>
       <div aria-label="Hámster naranja y beige corriendo en una rueda de metal" role="img" class="wheel-and-hamster">
         <div class="wheel"></div>
@@ -92,21 +97,14 @@
         </div>
         <div class="spoke"></div>
       </div>
-      <h2 id="savingTitle" tabindex="-1">Guardando tu tarea…</h2>
+      <h2 id="saving-title" tabindex="-1">Guardando tu tarea…</h2>
     </section>
 
-    <!-- Estado 3: tarea guardada -->
-    <section class="card panel" id="saved" hidden>
-      <svg class="check" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M7.5 12.5l3 3 6-6.5"></path></svg>
-      <h2 id="savedTitle" tabindex="-1">Tarea guardada</h2>
-      <dl class="summary">
-        <dt>Nombre</dt><dd id="rNombre"></dd>
-        <dt>Descripción</dt><dd id="rDescripcion"></dd>
-        <dt>Asignado a</dt><dd id="rAsignado"></dd>
-        <dt>Entrega</dt><dd id="rFecha"></dd>
-        <dt>Estado</dt><dd id="rEstado"></dd>
-      </dl>
-      <button class="button1" type="button" id="otra">Agregar otra tarea</button>
+    <!-- Aquí se muestran las tarjetas de las tareas -->
+    <section class="task-section" aria-labelledby="task-section-title">
+      <h2 class="task-section-title" id="task-section-title">Tareas</h2>
+      <p class="task-empty" id="task-empty">Todavía no hay tareas. Agrega la primera con el formulario.</p>
+      <div class="task-list" id="task-list"></div>
     </section>
 
   </main>
