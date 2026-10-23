@@ -74,17 +74,6 @@ Ahí se llena el formulario (nombre, descripción, responsable, fecha de entrega
 
 > Las tecnologías pueden cambiar a medida que avance el proyecto.
 
-## Cómo verlo en tu computador
-
-No hace falta instalar nada. Descarga o clona el repositorio y abre `index.html` en el navegador.
-
-```bash
-git clone https://github.com/NBA-Nicole/Behind-the-track.git
-cd Behind-the-track
-```
-
-Si usas VS Code, también sirve la extensión Live Server (clic derecho en `index.html` y "Open with Live Server"). Necesitas conexión a internet para que carguen las portadas.
-
 ## Estructura
 
 ```
