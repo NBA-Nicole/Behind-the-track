@@ -7,7 +7,7 @@
 //   { artista: '...', album: '...', portada: 'img/mi-portada.jpg', ... }
 
 const CATALOGO = [
-  { artista: 'Hayley Williams', album: 'Ego Death at a Bachelorette Party', destacado: true, colores: ['#ff9aa8', '#9b5de5'] },
+  { artista: 'Hayley Williams', album: 'Petals for Armor',      destacado: true, colores: ['#ff9aa8', '#9b5de5'] },
   { artista: 'Billie Eilish',   album: 'Hit Me Hard and Soft',  destacado: true, colores: ['#8fd9cf', '#3b6ea5'] },
   { artista: 'Don Toliver',     album: 'Hardstone Psycho',      destacado: true, colores: ['#ffb26b', '#b5179e'] },
   { artista: 'Tame Impala',     album: 'Currents',              destacado: true, colores: ['#ff7eb6', '#ffb347'] },
@@ -54,7 +54,7 @@ function pedirITunes(url) {
 
 // Busca un álbum en iTunes. Devuelve { album, portada, enlace, anio } o null.
 async function buscarAlbum(item) {
-  const clave = 'btt2:' + item.artista + '|' + (item.album || '');
+  const clave = 'btt3:' + item.artista + '|' + (item.album || '');
 
   // Si ya lo buscamos en esta sesión, lo reutilizamos
   try {
@@ -63,7 +63,7 @@ async function buscarAlbum(item) {
   } catch (error) { /* sin sessionStorage, no pasa nada */ }
 
   const termino = item.album ? item.artista + ' ' + item.album : item.artista;
-  const url = 'https://itunes.apple.com/search?media=music&entity=album&limit=10&term=' + encodeURIComponent(termino);
+  const url = 'https://itunes.apple.com/search?media=music&entity=album&limit=25&term=' + encodeURIComponent(termino);
 
   const datos = await pedirITunes(url);
   if (!datos || !Array.isArray(datos.results)) return null;
@@ -72,12 +72,25 @@ async function buscarAlbum(item) {
   const delArtista = datos.results.filter((r) => r.artworkUrl100 && normalizar(r.artistName).includes(artista));
   if (delArtista.length === 0) return null;
 
-  // Si pedí un álbum concreto, prefiero el que se llame parecido
-  let hallado = delArtista[0];
+  // Un álbum sale en varias versiones (normal, explícita, deluxe, sencillo).
+  // Primero me quedo con las que se llamen parecido y luego elijo la mejor por puntos.
+  let candidatos = delArtista;
   if (item.album) {
     const titulo = normalizar(item.album);
-    hallado = delArtista.find((r) => normalizar(r.collectionName).includes(titulo)) || hallado;
+    const parecidos = delArtista.filter((r) => normalizar(r.collectionName).includes(titulo));
+    if (parecidos.length > 0) candidatos = parecidos;
   }
+
+  const puntos = (r) => {
+    let p = 0;
+    if (r.collectionExplicitness === 'explicit') p += 100;                          // la versión explícita
+    if (item.album && normalizar(r.collectionName) === normalizar(item.album)) p += 40;  // mismo nombre exacto
+    if (/single|\bep\b/i.test(r.collectionName)) p -= 60;                           // sencillos y EP
+    if (/deluxe|edition|tour|live/i.test(r.collectionName)) p -= 20;                // ediciones extra
+    return p + (r.trackCount || 0) / 100;                                            // a igualdad, la más completa
+  };
+
+  const hallado = candidatos.slice().sort((x, y) => puntos(y) - puntos(x))[0];
 
   const resultado = {
     album: hallado.collectionName,
