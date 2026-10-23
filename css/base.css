@@ -316,38 +316,32 @@ h2 {
 }
 
 /* ---------- Notas que fluyen (cargando) ----------
-   Las notas nacen en un inicio invisible, siguen la curva y se apagan en un final
-   invisible. Se usa en la portada y en el planificador. */
+   Las notas nacen en un inicio invisible a la izquierda, ondulan hacia la derecha y se
+   apagan en un final invisible. No se dibuja ninguna línea. Se usa en la portada y en
+   el planificador. */
 .notas {
   position: relative;
-  width: 120px;
-  height: 200px;
+  width: 260px;
+  height: 110px;
   flex: none;
 }
 
-.notas__curvas { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-
-.notas__curvas path {
-  fill: none;
-  stroke: url(#notas-degradado);
-  stroke-width: 2;
-  stroke-linecap: round;
-}
+.notas__simbolos { position: absolute; }
 
 .nota {
   position: absolute;
   left: 0;
   top: 0;
   display: none;                 /* se muestran solo si el navegador sabe mover cosas por una curva */
-  font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Music", "DejaVu Sans", sans-serif;
-  font-size: 22px;
-  line-height: 1;
+  width: 22px;
   color: var(--rojo);
-  text-shadow: 0 4px 10px rgba(250, 45, 72, 0.35);
+  filter: drop-shadow(0 4px 6px rgba(250, 45, 72, 0.3));
 }
 
-.nota:nth-of-type(3n) { color: #7c4dff; text-shadow: 0 4px 10px rgba(124, 77, 255, 0.35); }
-.nota:nth-of-type(4n) { color: var(--tinta); text-shadow: none; }
+.nota svg { display: block; width: 100%; height: auto; fill: currentColor; }
+
+.nota:nth-of-type(3n) { color: #7c4dff; filter: drop-shadow(0 4px 6px rgba(124, 77, 255, 0.3)); }
+.nota:nth-of-type(4n) { color: var(--tinta); filter: none; }
 
 @supports (offset-path: path("M0 0")) {
   .nota {
@@ -359,8 +353,8 @@ h2 {
     animation-delay: calc(var(--i) * -0.4s);       /* repartidas, para que ya haya notas desde el primer momento */
   }
 
-  .nota--a { offset-path: path("M60 0 C 8 46, 8 82, 60 100 S 112 154, 60 200"); }
-  .nota--b { offset-path: path("M60 0 C 112 46, 112 82, 60 100 S 8 154, 60 200"); }
+  .nota--a { offset-path: path("M0 55 C 43 -5, 87 -5, 130 55 S 217 115, 260 55"); }
+  .nota--b { offset-path: path("M0 55 C 43 115, 87 115, 130 55 S 217 -5, 260 55"); }
 }
 
 @keyframes fluir {
@@ -371,7 +365,8 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nota { display: none !important; }
+  .nota { animation: none; opacity: 0.9; offset-distance: 50%; }
+  .nota:nth-of-type(n+4) { display: none; }
 }
 
 /* Texto solo para lectores de pantalla */
