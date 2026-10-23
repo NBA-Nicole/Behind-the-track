@@ -141,7 +141,11 @@ function createTaskCard(task) {
   card.className = 'task-card';
   card.dataset.id = task.id;
 
-  const deleteButton = makeElement('button', 'button3', 'Eliminar');
+  // La etiqueta del estado lleva el estado en data-estado para que el CSS le ponga color
+  const statusTag = makeElement('span', 'task-card-status', task.estado);
+  statusTag.dataset.estado = task.estado;
+
+  const deleteButton = makeElement('button', 'boton boton--chico', 'Eliminar');
   deleteButton.type = 'button';
   deleteButton.setAttribute('aria-label', 'Eliminar la tarea ' + task.nombre);
   deleteButton.addEventListener('click', () => handleDelete(task.id, card));
@@ -151,7 +155,7 @@ function createTaskCard(task) {
     makeElement('p', 'task-card-text', task.descripcion),
     makeElement('p', 'task-card-meta', 'Asignado a: ' + task.asignadoA),
     makeElement('p', 'task-card-meta', 'Fecha de entrega: ' + formatDate(task.fechaDeEntrega)),
-    makeElement('span', 'task-card-status', task.estado),
+    statusTag,
     deleteButton
   );
   return card;

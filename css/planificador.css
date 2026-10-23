@@ -1,199 +1,166 @@
-/* Planificador de Tareas
-   Una columna centrada: el formulario (que se cambia por el hámster
-   un momento al guardar) y debajo la lista de tarjetas de tareas. */
+/* ==========================================================
+   Behind the Track - Planificador de tareas
+   Usa base.css (vidrio, fondo, barra, botones); aquí solo va lo de esta página.
+   ========================================================== */
 
-:root {
-  --bg: #212121;
-  --card: #171717;
-  --field: #171717;
-  --btn: #252525;
-  --ink: #ffffff;
-  --text: #d3d3d3;
-  --muted: #a8a8a8;
-  --ring: #c9c9c9;
-  --danger: #e5484d;
-  --ok: #7ddf9a;
-  --font: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  color-scheme: dark;
+.pagina {
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: 6.5rem 1.25rem 0;
 }
 
-* { box-sizing: border-box; }
+/* ---------- Cabecera ---------- */
+.pagina__cabeza { text-align: center; max-width: 40rem; margin: 0 auto 2.5rem; }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font);
-  font-size: 16px;
-  line-height: 1.5;
-  padding-inline: 16px;
-  padding-block: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+.pagina__cabeza h1 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
 }
 
-.stage { width: 100%; max-width: 400px; }
+.pagina__bajada { margin-top: 1rem; color: var(--tinta-suave); }
+.pagina__cabeza .enlaces { justify-content: center; }
 
-.volver {
-  display: inline-block;
-  margin-bottom: 14px;
-  padding: 4px 0;
-  color: var(--muted);
-  font-size: 0.875rem;
-  text-decoration: none;
+/* ---------- Dos columnas: formulario y lista ---------- */
+.columnas {
+  display: grid;
+  grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
 }
-.volver:hover { color: var(--ink); text-decoration: underline; }
-.volver:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 
-/* ---------- Tarjeta y formulario ---------- */
-/* From Uiverse.io by Praashoo7 (adaptado) */
-.card {
+.columna-form .panel { margin-top: 0; }
+
+.tareas { display: flex; flex-direction: column; gap: 0.9rem; }
+.tareas h2 { font-size: clamp(1.5rem, 3vw, 1.9rem); }
+
+/* ---------- Formulario ---------- */
+.formulario {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding-left: 2em;
-  padding-right: 2em;
-  padding-bottom: 1.6em;
-  background-color: var(--card);
-  border-radius: 25px;
-  transition: .4s ease-in-out;
-}
-.card[hidden] { display: none; }
-.form:hover { transform: scale(1.02); }
-
-.heading {
-  text-align: center;
-  margin: 1.6em 0 1em;
-  color: var(--ink);
-  font-size: 1.2em;
-  font-weight: 600;
+  gap: 0.9rem;
 }
 
-.group { display: flex; flex-direction: column; gap: 5px; }
-.group label { font-size: 0.75rem; color: var(--muted); padding-left: 1em; }
+.formulario__titulo { font-size: 1.5rem; text-align: center; margin-bottom: 0.4rem; }
+
+.group { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.group label {
+  padding-left: 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--tinta-suave);
+}
 
 .field {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5em;
-  border-radius: 25px;
-  padding: 0.6em;
-  border: none;
-  outline: none;
-  color: white;
-  background-color: var(--field);
-  box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
-  min-height: 44px;
+  gap: 0.6rem;
+  min-height: 46px;
+  padding: 0.55rem 1rem;
+  border-radius: 18px;
+  color: var(--tinta);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 2px 6px rgba(50, 35, 90, 0.1);
+  transition: box-shadow 0.2s, background 0.2s;
 }
-.field:focus-within { outline: 2px solid var(--ring); outline-offset: 2px; }
-.field.area { align-items: flex-start; border-radius: 20px; }
-.field.area .input-icon { margin-top: 0.2em; }
 
-.input-icon {
-  height: 1.3em;
-  width: 1.3em;
-  flex: none;
-  color: white;
+.field:focus-within {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 3px rgba(250, 45, 72, 0.35), inset 0 2px 6px rgba(50, 35, 90, 0.08);
 }
+
+.field.area { align-items: flex-start; }
+.field.area .input-icon { margin-top: 0.2rem; }
+
+.input-icon { width: 1.1rem; height: 1.1rem; flex: none; color: var(--rojo); }
 
 .input-field {
-  background: none;
-  border: none;
-  outline: none;
   width: 100%;
   min-width: 0;
   font: inherit;
-  color: var(--text);
-}
-.input-field::placeholder { color: #8f8f8f; opacity: 1; }
-textarea.input-field { resize: none; }
-select.input-field option { background: #171717; color: #d3d3d3; }
-
-.btn { display: flex; gap: 10px; margin-top: 1.4em; }
-
-.button1, .button2, .button3 {
-  font: inherit;
-  padding: 0.5em 1.1em;
-  min-height: 44px;
-  border-radius: 5px;
+  color: var(--tinta);
+  background: none;
   border: none;
   outline: none;
-  cursor: pointer;
-  transition: .4s ease-in-out;
-  background-color: var(--btn);
-  color: white;
-}
-.button1 { flex: 2; }
-.button2 { flex: 1; }
-.button1:hover, .button2:hover { background-color: black; color: white; }
-.button3 { margin-top: 0.5em; }
-.button3:hover { background-color: var(--danger); }
-.button1:focus-visible, .button2:focus-visible, .button3:focus-visible {
-  outline: 2px solid white;
-  outline-offset: 2px;
 }
 
-/* mensaje de error que sale debajo de cada campo */
+.input-field::placeholder { color: #8b8798; opacity: 1; }
+textarea.input-field { resize: none; }
+select.input-field { cursor: pointer; }
+select.input-field option { background: #fff; color: var(--tinta); }
+
+.formulario__botones { display: flex; gap: 0.7rem; margin-top: 0.6rem; }
+.formulario__botones .boton { flex: 1; }
+.formulario__botones .boton--rojo { flex: 2; }
+
+/* Mensaje de error debajo de cada campo */
 .field-error {
-  margin: 0;
-  padding-left: 1em;
-  font-size: 0.8125rem;
-  color: #ff8a8e;
+  padding-left: 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #d6203a;
 }
 .field-error:empty { display: none; }
-.has-error .field { box-shadow: inset 2px 5px 10px rgb(5, 5, 5), 0 0 0 1px #ff8a8e; }
+.has-error .field { border-color: #d6203a; background: rgba(255, 235, 238, 0.7); }
 
 /* ---------- Estado: guardando (hámster) ---------- */
-.panel {
-  align-items: center;
-  text-align: center;
-  padding-top: 2em;
-  padding-bottom: 2em;
-  gap: 14px;
-}
-.panel h2 { margin: 0; font-size: 1.2em; font-weight: 600; color: var(--ink); }
-.panel h2:focus { outline: none; }
-
-/* ---------- Lista de tareas ---------- */
-.task-section {
-  margin-top: 28px;
+.guardando {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
 }
-.task-section-title { margin: 0; color: var(--ink); font-size: 1.1em; font-weight: 600; }
-.task-empty { margin: 0; color: var(--muted); font-size: 0.9375rem; }
-.task-empty[hidden] { display: none; }
-.task-list { display: flex; flex-direction: column; gap: 12px; }
+.guardando h2 { font-size: 1.4rem; }
+.guardando h2:focus { outline: none; }
+
+/* ---------- Lista de tareas ---------- */
+.task-empty { color: var(--tinta-suave); }
+.task-list { display: flex; flex-direction: column; gap: 0.9rem; }
 
 .task-card {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 1.1em 1.4em;
-  background-color: var(--card);
-  border-radius: 20px;
+  gap: 0.35rem;
+  padding: 1.1rem 1.4rem;
+  border-radius: 24px;
+  background: var(--vidrio);
+  border: var(--vidrio-borde);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  box-shadow: var(--vidrio-sombra);
 }
-.task-card-name { margin: 0; color: var(--ink); font-size: 1.05em; font-weight: 600; overflow-wrap: anywhere; }
-.task-card-text { margin: 0; color: var(--text); font-size: 0.9375rem; overflow-wrap: anywhere; }
-.task-card-meta { margin: 0; color: var(--muted); font-size: 0.875rem; overflow-wrap: anywhere; }
+
+.task-card-name { font-family: var(--display); font-weight: 800; font-size: 1.15rem; line-height: 1.2; overflow-wrap: anywhere; }
+.task-card-text { overflow-wrap: anywhere; }
+.task-card-meta { font-size: 0.9rem; color: var(--tinta-suave); overflow-wrap: anywhere; }
+
 .task-card-status {
   align-self: flex-start;
-  padding: 2px 12px;
+  margin-top: 0.3rem;
+  padding: 0.15rem 0.8rem;
   border-radius: 999px;
-  background-color: var(--btn);
-  color: var(--ink);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--tinta);
+  background: rgba(255, 255, 255, 0.8);
 }
-.task-card .button3 { align-self: flex-start; }
+
+.task-card-status[data-estado="POR HACER"]  { background: #e3e1ec; }
+.task-card-status[data-estado="EN PROCESO"] { background: #ffe3a3; }
+.task-card-status[data-estado="REVISIÓN"]   { background: #d9c8ff; }
+.task-card-status[data-estado="HECHO"]      { background: #bdf0cf; }
+
+.task-card .boton { align-self: flex-start; margin-top: 0.4rem; }
 
 /* ---------- Hámster ---------- */
-/* From Uiverse.io by Nawsome */
+/* Se dibuja todo con divs y CSS; las medidas van en em para poder escalarlo con font-size */
 .wheel-and-hamster {
   --dur: 1s;
   position: relative;
@@ -402,12 +369,12 @@ select.input-field option { background: #171717; color: #d3d3d3; }
 }
 
 /* ---------- Ajustes ---------- */
-@media (prefers-reduced-motion: reduce) {
-  .card { transition: none; }
-  .form:hover { transform: none; }
-  .wheel-and-hamster, .wheel-and-hamster * { animation: none !important; }
+@media (max-width: 860px) {
+  .columnas { grid-template-columns: minmax(0, 1fr); }
+  .pagina { padding-top: 5.5rem; }
 }
 
-@media (max-width: 420px) {
-  .card { padding-left: 1.4em; padding-right: 1.4em; }
+@media (prefers-reduced-motion: reduce) {
+  .field { transition: none; }
+  .wheel-and-hamster, .wheel-and-hamster * { animation: none !important; }
 }

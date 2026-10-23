@@ -1,0 +1,316 @@
+/* ==========================================================
+   Behind the Track - Base compartida (vidrio, fondo, barra y botones)
+   ========================================================== */
+
+:root {
+  --fondo: #eceaf2;
+  --tinta: #1c1b22;
+  --tinta-suave: #5f5c6b;
+  --rojo: #fa2d48;
+  --rojo-claro: #ff5a70;
+  --blanco: #ffffff;
+  --display: "Bricolage Grotesque", "Arial Black", Arial, sans-serif;
+  --vidrio: linear-gradient(135deg, rgba(255, 255, 255, 0.66), rgba(255, 255, 255, 0.3));
+  --vidrio-borde: 1px solid rgba(255, 255, 255, 0.75);
+  --vidrio-sombra: inset 2px 1px 6px rgba(255, 255, 255, 0.55), 0 10px 30px rgba(50, 35, 90, 0.12);
+  --texto: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Inter, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  background: var(--fondo);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--texto);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--tinta);
+  position: relative;
+  overflow-x: hidden;
+}
+
+a { color: inherit; }
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--rojo);
+  outline-offset: 3px;
+}
+
+/* ---------- Vidrio (lo comparten varias piezas) ---------- */
+.barra::before,
+.boton,
+.panel {
+  background: var(--vidrio);
+  border: var(--vidrio-borde);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  box-shadow: var(--vidrio-sombra);
+}
+
+[hidden] { display: none !important; }
+
+/* ---------- Fondo con bolas de color ---------- */
+.fondo {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.orbe {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  box-shadow: inset 10px 0 20px #fff;
+}
+
+.orbe--1 {
+  width: 230px; height: 230px;
+  top: 14%; left: 8%;
+  background-image: linear-gradient(#ffa24c, #ff2d8f);
+  animation: flotar 28s ease-in-out infinite;
+}
+
+.orbe--2 {
+  width: 130px; height: 130px;
+  top: 52%; right: 9%;
+  background-image: linear-gradient(90deg, #ff6b6b, #c13dff);
+  animation: flotar 22s ease-in-out infinite reverse;
+}
+
+.orbe--3 {
+  width: 300px; height: 300px;
+  bottom: -110px; left: 42%;
+  background-image: linear-gradient(#9ad0ff, #c9a7ff);
+  animation: flotar 34s ease-in-out infinite;
+}
+
+@keyframes flotar {
+  0%   { transform: translateX(0) scale(1); }
+  50%  { transform: translateX(-90px) scale(0.85); }
+  100% { transform: translateX(0) scale(1); }
+}
+
+/* ---------- Barra de arriba y menú ---------- */
+.barra {
+  position: fixed;
+  top: 0.75rem;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  width: min(1100px, calc(100% - 1.5rem));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 0.7rem 0.55rem 1.1rem;
+  transition: opacity 0.8s ease;
+}
+
+.barra::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 999px;
+}
+
+.barra__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.barra__disco {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--blanco) 0 12%, var(--rojo) 13% 30%, transparent 31%),
+    repeating-radial-gradient(circle, #1c1b22 0 2px, #3a3846 2px 4px);
+}
+
+.menu { display: flex; gap: 0.25rem; }
+
+.menu__enlace {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: var(--tinta-suave);
+  transition: background 0.2s, color 0.2s;
+}
+
+.menu__enlace svg { display: none; width: 1.4rem; height: 1.4rem; fill: currentColor; }
+
+.menu__enlace:hover { background: rgba(255, 255, 255, 0.7); color: var(--tinta); }
+.menu__enlace[aria-current="page"] { background: rgba(255, 255, 255, 0.85); color: var(--rojo); }
+
+/* ---------- Botones de vidrio ---------- */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.4rem;
+  border-radius: 999px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--tinta);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.boton:hover { transform: translateY(-2px); }
+.boton:active { transform: scale(0.97); }
+
+.boton--rojo {
+  color: var(--blanco);
+  background: linear-gradient(180deg, var(--rojo-claro), var(--rojo));
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.65),
+    0 10px 24px rgba(250, 45, 72, 0.38);
+}
+
+.boton--chico { padding: 0.5rem 1rem; font-size: 0.9rem; }
+
+.enlaces { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+/* ---------- Textos que se repiten en varias páginas ---------- */
+.etiqueta {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  margin-bottom: 1rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rojo);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.resalte {
+  padding: 0 0.15em;
+  border-radius: 0.2em;
+  color: inherit;
+  background: rgba(250, 45, 72, 0.16);
+}
+
+/* ---------- Secciones ---------- */
+.seccion {
+  position: relative;
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 5.5rem) 1.25rem 0;
+  scroll-margin-top: 1rem;     /* para que la barra fija no tape el título al saltar con el menú */
+}
+
+h2 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 5vw, 2.7rem);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.seccion__bajada { max-width: 40rem; margin-top: 0.6rem; color: var(--tinta-suave); }
+
+.panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(1.25rem, 4vw, 2.25rem);
+  margin-top: 1.5rem;
+  border-radius: 28px;
+}
+
+/* Brillo que cruza el panel */
+.panel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 150%;
+  height: 10px;
+  background: #fff;
+  transform: rotateZ(50deg);
+  filter: blur(30px);
+  animation: brillo 10s ease infinite;
+}
+
+@keyframes brillo {
+  0%        { top: 100%; left: -100%; }
+  50%, 100% { top: 0;    left: 70%; }
+}
+
+.panel--estado { margin-top: 0; }
+.panel--estado p { max-width: 40rem; margin-top: 0.6rem; color: var(--tinta-suave); }
+
+/* ---------- Pie ---------- */
+.pie {
+  margin-top: clamp(3rem, 8vw, 5rem);
+  padding: 2rem 1.25rem 2.5rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--tinta-suave);
+}
+
+.pie__nota { margin-top: 0.25rem; font-size: 0.8rem; opacity: 0.8; }
+
+/* ---------- Celular: el menú baja como en Apple Music ---------- */
+@media (max-width: 719px) {
+  body { padding-bottom: 5.5rem; }
+
+  .barra { justify-content: center; padding: 0.55rem 1rem; }
+
+  .menu {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    z-index: 50;
+    justify-content: space-around;
+    padding: 0.4rem;
+    border-radius: 26px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.4));
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    backdrop-filter: blur(18px) saturate(1.4);
+    box-shadow: inset 2px 1px 6px rgba(255, 255, 255, 0.55), 0 10px 30px rgba(50, 35, 90, 0.18);
+  }
+
+  .menu__enlace {
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.72rem;
+    border-radius: 18px;
+  }
+
+  .menu__enlace svg { display: block; }
+}
+
+/* ---------- Si la persona pidió menos movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .orbe, .panel::after { animation: none; }
+}

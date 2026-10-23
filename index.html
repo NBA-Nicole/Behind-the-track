@@ -6,72 +6,177 @@
   <title>Behind the Track</title>
   <meta name="description" content="Descubre artistas y álbumes, y conoce lo que hay detrás de la música que escuchas.">
 
+  <!-- Si el usuario no pidió menos movimiento, escondemos el texto hasta que termine la intro -->
+  <script>
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('con-intro');
+    }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/inicio.css">
 </head>
 
 <body>
-  <header class="portada">
-    <div class="disco" aria-hidden="true"></div>
-    <h1>Behind<br>the Track</h1>
-    <p>Lo que hay detrás de cada canción.</p>
-  </header>
+  <!-- Bolas de color que quedan detrás del vidrio -->
+  <div class="fondo" aria-hidden="true">
+    <span class="orbe orbe--1"></span>
+    <span class="orbe orbe--2"></span>
+    <span class="orbe orbe--3"></span>
+  </div>
+
+  <!-- Barra de arriba (en celular el menú baja a la parte de abajo) -->
+  <div class="barra">
+    <a class="barra__logo" href="#inicio">
+      <span class="barra__disco" aria-hidden="true"></span>
+      Behind the Track
+    </a>
+
+    <nav class="menu" aria-label="Principal">
+      <a class="menu__enlace" href="#inicio" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z"/></svg>
+        <span>Inicio</span>
+      </a>
+      <a class="menu__enlace" href="#artistas">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>
+        <span>Artistas</span>
+      </a>
+      <a class="menu__enlace" href="#explorar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 7.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+        <span>Explorar</span>
+      </a>
+      <a class="menu__enlace" href="planificador.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM8 9h8v2H8zm0 4h8v2H8z"/></svg>
+        <span>Planificador</span>
+      </a>
+    </nav>
+  </div>
 
   <main>
-    <section>
-      <h2>Qué es</h2>
-      <p>
-        Una plataforma para descubrir artistas y álbumes, y para entender
-        la música que ya escuchas: quién la hizo, cómo se creó y qué historia
-        tiene detrás.
-      </p>
+    <!-- ================= Portada con la rueda de álbumes ================= -->
+    <section class="portada" id="inicio">
+      <div class="portada__texto">
+        <p class="etiqueta">Behind the Track</p>
+        <h1>Lo que hay <mark class="resalte">detrás</mark> de cada canción.</h1>
+        <p class="portada__bajada">
+          Descubre artistas y álbumes, y entiende la música que escuchas:
+          quién la hizo, cómo se creó y qué historia tiene.
+        </p>
+        <div class="enlaces">
+          <a class="boton boton--rojo" href="#artistas">Descubrir artistas</a>
+          <a class="boton" href="planificador.html">Ver el planificador</a>
+        </div>
+      </div>
+
+      <!-- Las cartas las crea js/inicio.js a partir de js/catalogo.js -->
+      <div class="rueda" id="rueda">
+        <ul class="escena" id="escena" aria-label="Álbumes destacados"></ul>
+      </div>
+
+      <p class="carga" id="carga" role="status">Cargando portadas 0%</p>
+      <button class="boton boton--chico saltar" id="saltar" type="button">Saltar intro</button>
     </section>
 
-    <section>
+    <!-- ================= Artistas (tarjetas 3D) ================= -->
+    <section class="seccion" id="artistas">
+      <h2>Artistas para empezar</h2>
+      <p class="seccion__bajada">Pasa el cursor por una tarjeta y mira cómo se levanta. Dale al play para escucharlo y al corazón para guardarlo.</p>
+      <div class="tarjetas" id="tarjetas"></div>
+    </section>
+
+    <!-- ================= Qué vas a encontrar ================= -->
+    <section class="seccion" id="explorar">
       <h2>Qué vas a encontrar</h2>
-      <ol class="tracklist">
-        <li>
-          <span class="num">1</span>
-          <span><strong>Artistas.</strong> Biografía, discografía e influencias.</span>
-        </li>
-        <li>
-          <span class="num">2</span>
-          <span><strong>Álbumes.</strong> Créditos, producción y proceso creativo.</span>
-        </li>
-        <li>
-          <span class="num">3</span>
-          <span><strong>Descubrimiento.</strong> Búsqueda por género, década y país.</span>
-        </li>
-        <li>
-          <span class="num">4</span>
-          <span><strong>Tu colección.</strong> Guarda favoritos y una lista de por escuchar.</span>
-        </li>
-        <li>
-          <span class="num">5</span>
-          <span><strong>Reproductor.</strong> Escucha sin salir de la página, con Apple Music.</span>
-        </li>
-      </ol>
+      <div class="panel">
+        <ol class="tracklist">
+          <li>
+            <span class="num">1</span>
+            <span><strong>Artistas.</strong> Biografía, discografía e influencias.</span>
+          </li>
+          <li>
+            <span class="num">2</span>
+            <span><strong>Álbumes.</strong> Créditos, producción y proceso creativo.</span>
+          </li>
+          <li>
+            <span class="num">3</span>
+            <span><strong>Descubrimiento.</strong> Búsqueda por género, década y país.</span>
+          </li>
+          <li>
+            <span class="num">4</span>
+            <span><strong>Tu colección.</strong> Guarda favoritos y una lista de por escuchar.</span>
+          </li>
+          <li>
+            <span class="num">5</span>
+            <span><strong>Reproductor.</strong> Escucha sin salir de la página, con Apple Music.</span>
+          </li>
+        </ol>
+      </div>
     </section>
 
-    <section class="estado">
-      <h2>Estado del proyecto</h2>
-      <p>
-        En planificación. Esta es la estructura base; el desarrollo avanza por
-        sprints en el tablero de Scrum.
-      </p>
-      <div class="enlaces">
-        <a class="boton" href="planificador.html">Ir al planificador de tareas</a>
-        <a class="boton" href="https://trello.com/b/aM2e5TLP/behind-the-track" target="_blank" rel="noopener">Ver tablero en Trello</a>
-        <a class="boton" href="https://github.com/NBA-Nicole/Proyecto-personal" target="_blank" rel="noopener">Ver repositorio</a>
+    <!-- ================= Estado ================= -->
+    <section class="seccion" id="estado">
+      <div class="panel panel--estado">
+        <h2>Estado del proyecto</h2>
+        <p>
+          En desarrollo. Ya están el planificador de tareas y esta portada;
+          lo demás avanza por sprints en el planner del repositorio.
+        </p>
+        <div class="enlaces">
+          <a class="boton boton--rojo" href="planificador.html">Ir al planificador de tareas</a>
+          <a class="boton" href="https://github.com/users/NBA-Nicole/projects/3" target="_blank" rel="noopener">Ver el planner en GitHub</a>
+          <a class="boton" href="https://github.com/NBA-Nicole/Behind-the-track" target="_blank" rel="noopener">Ver repositorio</a>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    Proyecto personal · Bootcamp Full Stack Java Jr · Nicole
+  <footer class="pie">
+    <p>Proyecto personal · Bootcamp Full Stack Java Jr · Nicole</p>
+    <p class="pie__nota">Portadas, enlaces y vistas previas de 30 segundos: iTunes Search API de Apple.</p>
   </footer>
+
+  <!-- Reproductor fijo de abajo; lo maneja js/reproductor.js -->
+  <div class="reproductor" id="reproductor" role="region" aria-label="Reproductor" hidden>
+    <img class="reproductor__portada" id="rp-portada" src="" alt="" width="52" height="52">
+
+    <div class="reproductor__info">
+      <strong id="rp-titulo">Nada sonando</strong>
+      <span id="rp-artista"></span>
+    </div>
+
+    <div class="reproductor__controles">
+      <button class="rp-boton" id="rp-anterior" type="button" aria-label="Canción anterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg>
+      </button>
+      <button class="rp-boton rp-boton--play" id="rp-play" type="button" aria-label="Reproducir o pausar">
+        <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="i-pausa" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+      </button>
+      <button class="rp-boton" id="rp-siguiente" type="button" aria-label="Canción siguiente">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5l11 7-11 7z"/></svg>
+      </button>
+    </div>
+
+    <div class="reproductor__tiempo">
+      <span id="rp-actual">0:00</span>
+      <input id="rp-progreso" type="range" min="0" max="1000" value="0" aria-label="Avance de la canción">
+      <span id="rp-total">0:30</span>
+    </div>
+
+    <a class="reproductor__apple" id="rp-apple" href="https://music.apple.com" target="_blank" rel="noopener">Completo en Apple Music</a>
+    <button class="rp-boton" id="rp-cerrar" type="button" aria-label="Cerrar reproductor">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg>
+    </button>
+
+    <audio id="rp-audio" preload="none"></audio>
+  </div>
+
+  <script src="js/catalogo.js"></script>
+  <script src="js/reproductor.js"></script>
+  <script src="js/inicio.js"></script>
 </body>
 </html>
