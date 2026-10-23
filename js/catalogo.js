@@ -11,7 +11,7 @@ const CATALOGO = [
   //   cancion:    nombre de la canción tal cual está en Apple Music
   //   artistaApi: con quién se busca en la API, si es distinto de lo que se muestra
   //   invitado:   si la canción tiene un invitado, se prefiere la versión donde aparece
-  { artista: 'Hayley Williams',      cancion: 'Ice in My OJ', destacado: true, colores: ['#ff9aa8', '#9b5de5'] },
+  { artista: 'Inner Wave',           cancion: '1 4 2',        destacado: true, colores: ['#8fd3f4', '#7ee8a8'] },
   { artista: 'Billie Eilish',        cancion: 'CHIHIRO',      destacado: true, colores: ['#8fd9cf', '#3b6ea5'] },
   { artista: 'Joji, Don Toliver',    cancion: 'Fragments',    artistaApi: 'Joji', invitado: 'Don Toliver', destacado: true, colores: ['#ffb26b', '#b5179e'] },
   { artista: 'Mac Miller',           cancion: 'Butterflies',  destacado: true, colores: ['#ff7eb6', '#ffb347'] },
