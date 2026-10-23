@@ -7,7 +7,7 @@
 //   { artista: '...', album: '...', portada: 'img/mi-portada.jpg', ... }
 
 const CATALOGO = [
-  { artista: 'Hayley Williams', album: 'Petals for Armor',      destacado: true, colores: ['#ff9aa8', '#9b5de5'] },
+  { artista: 'Hayley Williams', album: 'Ego Death at a Bachelorette Party', destacado: true, colores: ['#ff9aa8', '#9b5de5'] },
   { artista: 'Billie Eilish',   album: 'Hit Me Hard and Soft',  destacado: true, colores: ['#8fd9cf', '#3b6ea5'] },
   { artista: 'Don Toliver',     album: 'Hardstone Psycho',      destacado: true, colores: ['#ffb26b', '#b5179e'] },
   { artista: 'Tame Impala',     album: 'Currents',              destacado: true, colores: ['#ff7eb6', '#ffb347'] },

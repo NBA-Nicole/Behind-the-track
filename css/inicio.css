@@ -565,3 +565,19 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   .rp-boton { transition: none; }
 }
+
+/* ---------- Celular: la rueda queda debajo del texto, no detrás ---------- */
+@media (max-width: 719px) {
+  .portada { min-height: max(100svh, 48rem); }
+
+  .rueda {
+    top: auto;
+    bottom: 5rem;
+    height: 25rem;
+  }
+
+  /* El centro de la rueda baja para que las cartas queden debajo de los botones */
+  .escena { top: 40%; }
+
+  .carga { top: auto; bottom: 14rem; }
+}

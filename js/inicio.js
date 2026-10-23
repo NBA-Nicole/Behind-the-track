@@ -131,7 +131,8 @@
   // Mide el contenedor y escala todo según el ancho de la pantalla
   function medir() {
     const caja = rueda.getBoundingClientRect();
-    const k = limitar(Math.min(caja.width / 1440, caja.height / 800), 0.5, 1);
+    const minimo = caja.width < 720 ? 0.62 : 0.5;      // en el celular las cartas no pueden quedar diminutas
+    const k = limitar(Math.min(caja.width / 1440, caja.height / 800), minimo, 1);
     medidas.k = k;
     medidas.pxPorGrado = (RADIO_FINAL * k * Math.PI) / 180;
     rueda.style.setProperty('--lado', LADO * k + 'px');

@@ -28,6 +28,20 @@ const Reproductor = (function () {
   let indice = 0;
   let pidiendo = 0;        // para ignorar respuestas viejas si se cambia de álbum rápido
 
+  // El iPhone (y a veces Android) solo deja sonar un <audio> si empezó justo en un toque.
+  // Como las canciones se buscan DESPUÉS del toque, aquí "reservamos" el permiso
+  // con un silencio cortísimo y luego le cambiamos la canción.
+  const SILENCIO = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=';
+  let desbloqueado = false;
+
+  function desbloquear() {
+    if (desbloqueado) return false;
+    desbloqueado = true;
+    audio.src = SILENCIO;
+    audio.play().catch(() => { /* si no deja, el botón de play sigue disponible */ });
+    return true;
+  }
+
   const idDe = (item) => item.artista + '|' + (item.album || '');
 
   function formatear(segundos) {
@@ -80,7 +94,10 @@ const Reproductor = (function () {
     tiempoTotal.textContent = '0:30';
     botonAnterior.disabled = i === 0;
     botonSiguiente.disabled = i === canciones.length - 1;
-    return audio.play().catch(() => { /* el navegador pidió un clic; el botón de play sigue ahí */ });
+    return audio.play().catch(() => {
+      // El navegador no dejó empezar solo: que la persona toque play
+      artista.textContent = 'Toca play para escuchar';
+    });
   }
 
   async function escuchar(item) {
@@ -98,7 +115,8 @@ const Reproductor = (function () {
     botonPlay.disabled = true;
     botonAnterior.disabled = true;
     botonSiguiente.disabled = true;
-    audio.pause();
+    // Esto tiene que pasar dentro del toque, antes de esperar a internet
+    if (!desbloquear()) audio.pause();
     abrirCaja();
     avisar();
 
