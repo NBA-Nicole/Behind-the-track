@@ -60,7 +60,7 @@
     </header>
 
     <div class="columnas">
-      <!-- Formulario: se cambia por el hámster un momento al guardar -->
+      <!-- Formulario: se cambia por las notas un momento al guardar -->
       <div class="columna-form">
         <form class="panel formulario" id="tarea" novalidate>
           <h2 class="formulario__titulo">Nueva tarea</h2>
@@ -122,26 +122,29 @@
           </div>
         </form>
 
-        <!-- Hámster que corre un momento después de guardar -->
+        <!-- Notas que fluyen un momento después de guardar -->
         <section class="panel guardando" id="saving" hidden>
-          <div aria-label="Hámster naranja y beige corriendo en una rueda de metal" role="img" class="wheel-and-hamster">
-        <div class="wheel"></div>
-        <div class="hamster">
-          <div class="hamster__body">
-            <div class="hamster__head">
-              <div class="hamster__ear"></div>
-              <div class="hamster__eye"></div>
-              <div class="hamster__nose"></div>
-            </div>
-            <div class="hamster__limb hamster__limb--fr"></div>
-            <div class="hamster__limb hamster__limb--fl"></div>
-            <div class="hamster__limb hamster__limb--br"></div>
-            <div class="hamster__limb hamster__limb--bl"></div>
-            <div class="hamster__tail"></div>
-          </div>
-        </div>
-        <div class="spoke"></div>
-      </div>
+          <div class="notas" aria-hidden="true">
+          <svg class="notas__curvas" viewBox="0 0 120 200" focusable="false">
+            <defs>
+              <linearGradient id="notas-degradado" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="200">
+                <stop offset="0" stop-color="#fa2d48" stop-opacity="0"/>
+                <stop offset="0.5" stop-color="#fa2d48" stop-opacity="0.55"/>
+                <stop offset="1" stop-color="#fa2d48" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M60 0 C 8 46, 8 82, 60 100 S 112 154, 60 200"/>
+            <path d="M60 0 C 112 46, 112 82, 60 100 S 8 154, 60 200"/>
+          </svg>
+          <span class="nota nota--a" style="--i:0">♪</span>
+          <span class="nota nota--b" style="--i:1">♫</span>
+          <span class="nota nota--a" style="--i:2">♩</span>
+          <span class="nota nota--b" style="--i:3">♬</span>
+          <span class="nota nota--a" style="--i:4">♪</span>
+          <span class="nota nota--b" style="--i:5">♫</span>
+          <span class="nota nota--a" style="--i:6">♬</span>
+          <span class="nota nota--b" style="--i:7">♩</span>
+    </div>
           <h2 id="saving-title" tabindex="-1">Guardando tu tarea…</h2>
         </section>
       </div>

@@ -174,9 +174,9 @@ function handleDelete(taskId, card) {
   }
 }
 
-// ---------- Hámster ----------
-// Esconde el formulario un momento, muestra el hámster y después vuelve el formulario
-function showSavingHamster() {
+// ---------- Guardando ----------
+// Esconde el formulario un momento, muestra las notas fluyendo y después vuelve el formulario
+function showSaving() {
   form.hidden = true;
   savingView.hidden = false;
   document.querySelector('#saving-title').focus();
@@ -211,7 +211,7 @@ form.addEventListener('submit', (event) => {
   taskList.append(createTaskCard(newTask));
   updateEmptyMessage();
   form.reset();
-  showSavingHamster();
+  showSaving();
 });
 
 // Al escribir en un campo que tenía error, le quito el mensaje

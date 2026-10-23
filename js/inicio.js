@@ -10,6 +10,7 @@
   const rueda = document.getElementById('rueda');
   const escena = document.getElementById('escena');
   const textoCarga = document.getElementById('carga');
+  const avanceCarga = document.getElementById('carga-texto');   // solo lo leen los lectores de pantalla
   const botonSaltar = document.getElementById('saltar');
   const contenedorTarjetas = document.getElementById('tarjetas');
   const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -440,7 +441,7 @@
     }
 
     const carga = iniciarCarga((hechos, total) => {
-      textoCarga.textContent = 'Cargando portadas ' + Math.round((hechos / total) * 100) + '%';
+      avanceCarga.textContent = 'Cargando portadas ' + Math.round((hechos / total) * 100) + '%';
     }, refrescarTarjeta);
 
     // Espero a que carguen las portadas, o a que alguien salte la intro

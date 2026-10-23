@@ -77,7 +77,30 @@
         <ul class="escena" id="escena" aria-label="Álbumes destacados"></ul>
       </div>
 
-      <p class="carga" id="carga" role="status">Cargando portadas 0%</p>
+      <div class="carga" id="carga" role="status">
+    <div class="notas" aria-hidden="true">
+      <svg class="notas__curvas" viewBox="0 0 120 200" focusable="false">
+        <defs>
+          <linearGradient id="notas-degradado" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="200">
+            <stop offset="0" stop-color="#fa2d48" stop-opacity="0"/>
+            <stop offset="0.5" stop-color="#fa2d48" stop-opacity="0.55"/>
+            <stop offset="1" stop-color="#fa2d48" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M60 0 C 8 46, 8 82, 60 100 S 112 154, 60 200"/>
+        <path d="M60 0 C 112 46, 112 82, 60 100 S 8 154, 60 200"/>
+      </svg>
+      <span class="nota nota--a" style="--i:0">♪</span>
+      <span class="nota nota--b" style="--i:1">♫</span>
+      <span class="nota nota--a" style="--i:2">♩</span>
+      <span class="nota nota--b" style="--i:3">♬</span>
+      <span class="nota nota--a" style="--i:4">♪</span>
+      <span class="nota nota--b" style="--i:5">♫</span>
+      <span class="nota nota--a" style="--i:6">♬</span>
+      <span class="nota nota--b" style="--i:7">♩</span>
+    </div>
+        <span class="solo-lectores" id="carga-texto">Cargando portadas</span>
+      </div>
       <button class="boton boton--chico saltar" id="saltar" type="button">Saltar intro</button>
     </section>
 
