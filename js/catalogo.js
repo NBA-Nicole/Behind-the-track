@@ -1,5 +1,5 @@
 // Catálogo de la portada de Behind the Track.
-// Aquí solo dejo artista y álbum; la portada, el año y el enlace
+// Aquí solo dejo artista y álbum (o canción); la portada, el año y el enlace
 // los trae la API de iTunes (gratis y sin llave).
 // Si "album" es null, busca el primer álbum que salga de ese artista.
 // "colores" es el degradado que se ve si la portada no carga.
@@ -7,11 +7,16 @@
 //   { artista: '...', album: '...', portada: 'img/mi-portada.jpg', ... }
 
 const CATALOGO = [
-  { artista: 'Hayley Williams', album: 'Petals for Armor',      destacado: true, colores: ['#ff9aa8', '#9b5de5'] },
-  { artista: 'Billie Eilish',   album: 'Hit Me Hard and Soft',  destacado: true, colores: ['#8fd9cf', '#3b6ea5'] },
-  { artista: 'Don Toliver',     album: 'Hardstone Psycho',      destacado: true, colores: ['#ffb26b', '#b5179e'] },
-  { artista: 'Tame Impala',     album: 'Currents',              destacado: true, colores: ['#ff7eb6', '#ffb347'] },
-  { artista: 'Inner Wave',      album: null,                    destacado: true, colores: ['#8fd3f4', '#7ee8a8'] },
+  // Las cinco primeras son canciones (las que salen en las tarjetas grandes).
+  //   cancion:    nombre de la canción tal cual está en Apple Music
+  //   artistaApi: con quién se busca en la API, si es distinto de lo que se muestra
+  //   invitado:   si la canción tiene un invitado, se prefiere la versión donde aparece
+  { artista: 'Hayley Williams',      cancion: 'Ice in My OJ', destacado: true, colores: ['#ff9aa8', '#9b5de5'] },
+  { artista: 'Billie Eilish',        cancion: 'CHIHIRO',      destacado: true, colores: ['#8fd9cf', '#3b6ea5'] },
+  { artista: 'Joji, Don Toliver',    cancion: 'Fragments',    artistaApi: 'Joji', invitado: 'Don Toliver', destacado: true, colores: ['#ffb26b', '#b5179e'] },
+  { artista: 'Mac Miller',           cancion: 'Butterflies',  destacado: true, colores: ['#ff7eb6', '#ffb347'] },
+  { artista: 'Ariana Grande',        cancion: 'like i do',    destacado: true, colores: ['#8fd3f4', '#7ee8a8'] },
+  // El resto son álbumes y solo salen en la rueda de la portada
   { artista: 'Paramore',        album: 'After Laughter',        colores: ['#ffd36e', '#ff6f91'] },
   { artista: 'Frank Ocean',     album: 'Blonde',                colores: ['#f6e7a8', '#e5989b'] },
   { artista: 'Lorde',           album: 'Melodrama',             colores: ['#7aa2f7', '#c77dff'] },
@@ -113,12 +118,14 @@ function iniciarCarga(alProgreso, alLlegar) {
   let hechos = 0;
 
   const cargas = items.map(async (item) => {
-    const datos = await buscarAlbum(item);
+    const datos = item.cancion ? await buscarCancion(item) : await buscarAlbum(item);
 
     if (datos) {
       item.album = datos.album;
       item.enlace = datos.enlace;
       item.idColeccion = datos.idColeccion;
+      item.audio = datos.audio;
+      item.coleccion = datos.coleccion;
       item.anio = datos.anio;
     }
 
@@ -146,6 +153,59 @@ function iniciarCarga(alProgreso, alLlegar) {
   const terminada = Promise.race([Promise.all(cargas), tope]);
 
   return { items, terminada };
+}
+
+// Busca una canción en iTunes. Devuelve los datos listos para la tarjeta o null.
+// Prefiere la versión explícita y la original (no remix, en vivo ni acústica).
+async function buscarCancion(item) {
+  const clave = 'btt3c:' + item.artista + '|' + item.cancion;
+
+  try {
+    const guardado = sessionStorage.getItem(clave);
+    if (guardado) return JSON.parse(guardado);
+  } catch (error) { /* sin sessionStorage, no pasa nada */ }
+
+  const quien = normalizar(item.artistaApi || item.artista);
+  const titulo = normalizar(item.cancion);
+  const invitado = item.invitado ? normalizar(item.invitado) : '';
+
+  const url = 'https://itunes.apple.com/search?media=music&entity=song&limit=25&term=' +
+    encodeURIComponent((item.artistaApi || item.artista) + ' ' + item.cancion);
+
+  const datos = await pedirITunes(url);
+  if (!datos || !Array.isArray(datos.results)) return null;
+
+  const candidatos = datos.results.filter((r) =>
+    r.previewUrl && r.artworkUrl100 &&
+    normalizar(r.artistName).includes(quien) &&
+    normalizar(r.trackName).includes(titulo)
+  );
+  if (candidatos.length === 0) return null;
+
+  const puntos = (r) => {
+    let p = 0;
+    const nombre = normalizar(r.trackName);
+    if (r.trackExplicitness === 'explicit') p += 100;                         // la versión explícita
+    if (nombre === titulo) p += 40;                                           // mismo nombre exacto
+    if (invitado && normalizar(r.artistName + ' ' + r.trackName).includes(invitado)) p += 60;
+    if (/remix|live|en vivo|acoustic|instrumental|karaoke|sped|slowed|cover|demo/.test(nombre)) p -= 80;
+    return p;
+  };
+
+  const hallado = candidatos.slice().sort((x, y) => puntos(y) - puntos(x))[0];
+
+  const resultado = {
+    album: hallado.trackName,                      // en las tarjetas de canción, "album" es el nombre de la canción
+    coleccion: hallado.collectionName,
+    portada: hallado.artworkUrl100.replace('100x100bb', '600x600bb'),
+    enlace: hallado.trackViewUrl,
+    idColeccion: hallado.collectionId,
+    audio: hallado.previewUrl,
+    anio: hallado.releaseDate ? hallado.releaseDate.slice(0, 4) : ''
+  };
+
+  try { sessionStorage.setItem(clave, JSON.stringify(resultado)); } catch (error) { /* igual */ }
+  return resultado;
 }
 
 // Trae las canciones de un álbum con su vista previa de 30 segundos.

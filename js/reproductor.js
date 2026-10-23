@@ -87,7 +87,8 @@ const Reproductor = (function () {
     const cancion = canciones[i];
     audio.src = cancion.audio;
     titulo.textContent = cancion.titulo;
-    artista.textContent = album.artista + ' · ' + (album.album || '');
+    const detalle = album.audio ? album.coleccion : album.album;
+    artista.textContent = album.artista + (detalle ? ' · ' + detalle : '');
     barra.value = 0;
     barra.style.setProperty('--avance', '0%');
     tiempoActual.textContent = '0:00';
@@ -120,12 +121,15 @@ const Reproductor = (function () {
     abrirCaja();
     avisar();
 
-    const lista = await buscarCanciones(item.idColeccion);
+    // Una canción trae su propia vista previa; un álbum se busca por todas sus canciones
+    const lista = item.audio
+      ? [{ titulo: item.album, audio: item.audio }]
+      : await buscarCanciones(item.idColeccion);
     if (turno !== pidiendo) return;      // mientras tanto eligieron otro álbum
 
     if (lista.length === 0) {
-      titulo.textContent = 'No hay vista previa de este álbum';
-      artista.textContent = 'Puedes abrirlo completo en Apple Music';
+      titulo.textContent = 'No hay vista previa disponible';
+      artista.textContent = 'Puedes escucharla completa en Apple Music';
       return;
     }
 

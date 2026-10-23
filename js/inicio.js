@@ -350,7 +350,8 @@
   function crearTarjeta(item, favoritos) {
     const id = item.artista + '|' + (item.album || '');
     const titulo = item.album || 'Ver en Apple Music';
-    const detalle = item.anio ? item.anio + ' · Álbum' : 'Álbum';
+    const tipo = item.cancion ? 'Canción' : 'Álbum';
+    const detalle = item.anio ? item.anio + ' · ' + tipo : tipo;
     const esFavorito = favoritos.includes(id);
     const enlace = escapar(enlaceDe(item));
 
@@ -385,7 +386,7 @@
               '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 2.9 5 6.2 5c2 0 3.2 1 3.8 2.1h4C14.6 6 15.8 5 17.8 5c3.3 0 5.3 3.3 3.8 6.8C19.5 16.4 12 21 12 21z"/></svg>' +
             '</button>' +
           '</div>' +
-          '<a class="ver-mas" href="' + enlace + '" target="_blank" rel="noopener">Ver álbum <span aria-hidden="true">›</span></a>' +
+          '<a class="ver-mas" href="' + enlace + '" target="_blank" rel="noopener">Ver ' + (item.cancion ? 'canción' : 'álbum') + ' <span aria-hidden="true">›</span></a>' +
         '</div>' +
       '</div>';
 

@@ -22,8 +22,8 @@ Behind the Track quiere cubrir ese vacío:
 ## Qué hay hecho hasta ahora
 
 - **Portada** con una rueda de portadas de álbumes que se reparte, se levanta y gira sola. Se puede arrastrar con el mouse o con el dedo.
-- **Tarjetas de artistas** en 3D con la portada del álbum, botón de play y corazón para guardar favoritos (se guardan en el navegador).
-- **Reproductor fijo abajo**, como el de Apple Music: al darle play a un álbum suenan las vistas previas de 30 segundos de sus canciones, con anterior, siguiente y barra de avance. El álbum completo se abre en Apple Music.
+- **Tarjetas de canciones** en 3D con la portada, botón de play y corazón para guardar favoritos (se guardan en el navegador). Hoy son cinco: *Ice in My OJ* (Hayley Williams), *CHIHIRO* (Billie Eilish), *Fragments* (Joji y Don Toliver), *Butterflies* (Mac Miller) y *like i do* (Ariana Grande), siempre en su versión explícita.
+- **Reproductor fijo abajo**, como el de Apple Music: al darle play suena la vista previa de 30 segundos de la canción, con barra de avance. La canción completa se abre en Apple Music.
 - **Planificador de tareas** con formulario validado, tarjetas de tareas y opción de eliminarlas (ver más abajo dónde encontrarlo).
 - **Pantalla de carga** con notas musicales que siguen una curva, desde un inicio invisible hasta un final invisible. Es la misma animación que aparece al guardar una tarea.
 - Diseño de vidrio inspirado en Apple Music, con menú inferior en el celular.
@@ -74,6 +74,17 @@ Ahí se llena el formulario (nombre, descripción, responsable, fecha de entrega
 
 > Las tecnologías pueden cambiar a medida que avance el proyecto.
 
+## Cómo verlo en tu computador
+
+No hace falta instalar nada. Descarga o clona el repositorio y abre `index.html` en el navegador.
+
+```bash
+git clone https://github.com/NBA-Nicole/Behind-the-track.git
+cd Behind-the-track
+```
+
+Si usas VS Code, también sirve la extensión Live Server (clic derecho en `index.html` y "Open with Live Server"). Necesitas conexión a internet para que carguen las portadas.
+
 ## Estructura
 
 ```
@@ -90,7 +101,7 @@ js/
   planificador.js     validación, TaskManager y tarjetas de tareas
 ```
 
-Para cambiar los artistas de la portada se edita la lista `CATALOGO` al inicio de `js/catalogo.js`.
+Para cambiar las canciones de las tarjetas o los álbumes de la rueda se edita la lista `CATALOGO` al inicio de `js/catalogo.js`.
 
 ## Gestión del proyecto
 
